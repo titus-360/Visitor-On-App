@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 abstract class BaseAuditModel {
 
     @CreatedDate
-    @Column(name = "created_date", nullable = false, updatable = false)
+    @Column(name = "created_date", nullable = false, updatable = false )
     var createdAt: LocalDateTime? = null
 
     @LastModifiedDate
