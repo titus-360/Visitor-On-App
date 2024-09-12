@@ -5,8 +5,10 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
 }
 
-group = "com"
-version = "0.0.1-SNAPSHOT"
+
+apply("./bumpVersion.gradle")
+group = "com.visitoron"
+version = properties["appVersionName"]!!
 
 java {
     toolchain {
