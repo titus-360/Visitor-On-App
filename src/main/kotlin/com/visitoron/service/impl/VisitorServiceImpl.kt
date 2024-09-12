@@ -2,6 +2,7 @@ package com.visitoron.service.impl
 
 import com.visitoron.dtos.VisitorDto
 import com.visitoron.enums.VisitPurpose
+import com.visitoron.models.Host
 import com.visitoron.models.Visitor
 import com.visitoron.repository.HostRepository
 import com.visitoron.repository.VisitorRepository
@@ -35,19 +36,12 @@ class VisitorServiceImpl(private val visitorRepository: VisitorRepository,  priv
         )
     }
 
-    override fun selectHostPerson(visitorId: Long, hostId: Long): VisitorDto {
+    override fun selectHostPerson(visitorId: Long, hostId: Long): Host {
         val visitor = visitorRepository.findById(visitorId).orElseThrow { Exception("Visitor not found") }
         val host = hostRepository.findById(hostId).orElseThrow { Exception("Host not found") }
         visitor.host = host
         val updatedVisitor = visitorRepository.save(visitor)
-        return VisitorDto(
-            id = updatedVisitor.id,
-            name = updatedVisitor.name,
-            email = updatedVisitor.email,
-            idNumber = updatedVisitor.idNumber,
-            dateOfBirth = updatedVisitor.dateOfBirth,
-            phoneNumber = updatedVisitor.phone
-        )
+        return updatedVisitor.host!!
     }
 
     override fun selectPurposeOfVisit(visitorId: Long, visitPurpose: VisitPurpose): VisitorDto {

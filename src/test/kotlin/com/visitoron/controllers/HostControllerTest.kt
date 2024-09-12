@@ -82,7 +82,7 @@ class HostControllerTest {
             Host(name = "John Doe", email = "john.doe@example.com", phone = "1234567890", companyName = "Example Inc.")
         `when`(hostService.getHostById(hostId)).thenReturn(host)
 
-        val response = hostController.getHostById(hostId)
+        val response = hostController.selectHost(hostId)
 
         assertEquals(HttpStatus.OK, response.statusCode)
         assertEquals(host, response.body)
@@ -95,7 +95,7 @@ class HostControllerTest {
         `when`(hostService.getHostById(hostId)).thenThrow(RuntimeException("Host not found"))
 
         val exception = assertThrows(RuntimeException::class.java) {
-            hostController.getHostById(hostId)
+            hostController.selectHost(hostId)
         }
 
         assertEquals("Host not found", exception.message)
