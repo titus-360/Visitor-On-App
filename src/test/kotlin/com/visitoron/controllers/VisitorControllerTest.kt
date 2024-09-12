@@ -1,6 +1,7 @@
 package com.visitoron.controllers
 
 import com.visitoron.dtos.VisitorDto
+import com.visitoron.models.Host
 import com.visitoron.service.VisitorService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -38,19 +39,18 @@ class VisitorControllerTest {
     fun selectHost_assignsHostToVisitor() {
         val visitorId = 1L
         val hostId = 2L
-        val visitorDto = VisitorDto(
+        val hostDto = Host(
             name = "Jane Doe",
             email = "jane.doe@example.com",
-            idNumber = "ID123",
-            dateOfBirth = "1990-01-01",
-            phoneNumber = "0987654321"
+            phone = "0987654321",
+            companyName = "Example Inc."
         )
-        `when`(visitorService.selectHostPerson(visitorId, hostId)).thenReturn(visitorDto)
+        `when`(visitorService.selectHostPerson(visitorId, hostId)).thenReturn(hostDto)
 
         val response = visitorController.selectHost(visitorId, hostId)
 
         assertEquals(HttpStatus.OK, response.statusCode)
-        assertEquals(visitorDto, response.body)
+        assertEquals(hostDto, response.body)
         verify(visitorService, times(1)).selectHostPerson(visitorId, hostId)
     }
 

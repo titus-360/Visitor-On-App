@@ -57,16 +57,20 @@ class VisitorServiceImplTest {
             dateOfBirth = "1990-01-01",
             phone = "0987654321"
         )
-        val host =
-            Host(name = "John Doe", email = "john.doe@example.com", phone = "1234567890", companyName = "Example Inc.")
+        val host = Host(
+            name = "John Doe",
+            email = "john.doe@example.com",
+            phone = "1234567890",
+            companyName = "Example Inc."
+        )
         `when`(visitorRepository.findById(visitorId)).thenReturn(Optional.of(visitor))
         `when`(hostRepository.findById(hostId)).thenReturn(Optional.of(host))
         `when`(visitorRepository.save(visitor)).thenReturn(visitor)
 
         val result = visitorService.selectHostPerson(visitorId, hostId)
 
+        assertEquals(host, result)
         assertEquals(host, visitor.host)
-        assertEquals(visitor.name, result.name)
         verify(visitorRepository, times(1)).findById(visitorId)
         verify(hostRepository, times(1)).findById(hostId)
         verify(visitorRepository, times(1)).save(visitor)

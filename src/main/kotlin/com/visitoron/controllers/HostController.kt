@@ -34,7 +34,7 @@ class HostController(private val hostService: HostService) {
     }
 
     @GetMapping("/get-host-by-id/{hostId}")
-    fun getHostById(@PathVariable hostId: Long): ResponseEntity<Host> {
+    fun selectHost(@PathVariable hostId: Long): ResponseEntity<Host> {
         val host = hostService.getHostById(hostId)
         return ResponseEntity.ok(host)
     }
